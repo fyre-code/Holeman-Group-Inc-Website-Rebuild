@@ -1375,10 +1375,10 @@
       let W, H;
 
       function resize() {
-        W = canvas.width  = canvas.offsetWidth;
-        H = canvas.height = canvas.offsetHeight;
+        const hero = document.getElementById('hero');
+        W = canvas.width  = hero.offsetWidth  || window.innerWidth;
+        H = canvas.height = hero.offsetHeight || window.innerHeight;
       }
-      resize();
       window.addEventListener('resize', resize);
 
       /* ---- Element types ---- */
@@ -1575,15 +1575,19 @@
         }
       }
 
-      /* ---- Spawn pool ---- */
+      /* ---- Spawn pool & loop — init after layout is ready ---- */
       const POOL_SIZE = 11;
       const elements  = [];
-      // Stagger initial spawn so they don't all start together
-      for (let i = 0; i < POOL_SIZE; i++) {
-        const el = new DraftElement();
-        el.progress = Math.random() * 0.8;  // vary start state
-        if (Math.random() < 0.4) el.phase = 'hold';
-        elements.push(el);
+
+      function start() {
+        resize();  // set W, H from real layout dimensions
+        for (let i = 0; i < POOL_SIZE; i++) {
+          const el = new DraftElement();
+          el.progress = Math.random() * 0.8;
+          if (Math.random() < 0.4) el.phase = 'hold';
+          elements.push(el);
+        }
+        loop();
       }
 
       function loop() {
@@ -1594,7 +1598,12 @@
         }
         requestAnimationFrame(loop);
       }
-      loop();
+
+      if (document.readyState === 'complete') {
+        start();
+      } else {
+        window.addEventListener('load', start);
+      }
     })();
   </script>
 
