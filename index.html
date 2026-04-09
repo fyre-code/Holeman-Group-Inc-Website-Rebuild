@@ -267,7 +267,7 @@
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(14, 14, 14, 0.80);
+      background: rgba(14, 14, 14, 0.62);
     }
 
     .hero-content {
@@ -1407,7 +1407,7 @@
           this.angle = (Math.random() * Math.PI * 2);
           this.size  = 60 + Math.random() * 120;
           this.speed = 0.004 + Math.random() * 0.006; // progress per frame
-          this.maxOpacity = this.accent ? 0.22 : (0.08 + Math.random() * 0.12);
+          this.maxOpacity = this.accent ? 0.75 : (0.45 + Math.random() * 0.30);
         }
 
         draw() {
@@ -1415,7 +1415,7 @@
           ctx.save();
           ctx.globalAlpha = this.opacity;
           ctx.strokeStyle = this.accent ? 'rgba(158,3,3,1)' : 'rgba(255,255,255,1)';
-          ctx.lineWidth   = this.accent ? 0.8 : 0.6;
+          ctx.lineWidth   = this.accent ? 1.4 : 1.0;
           ctx.lineCap     = 'round';
 
           const p = this.progress;  // 0..1 drawn so far
@@ -1555,7 +1555,7 @@
         update() {
           if (this.phase === 'drawing') {
             this.progress += this.speed;
-            this.opacity   = Math.min(this.opacity + 0.015, this.maxOpacity);
+            this.opacity   = Math.min(this.opacity + 0.025, this.maxOpacity);
             if (this.progress >= 1) {
               this.progress = 1;
               this.phase    = 'hold';
