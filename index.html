@@ -490,6 +490,7 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 20px;
     }
 
@@ -502,7 +503,6 @@
       cursor: pointer;
     }
 
-    .project-card:nth-child(1) { grid-column: span 2; aspect-ratio: auto; min-height: 280px; }
 
     .project-bg {
       position: absolute;
@@ -910,7 +910,6 @@
 
       .why-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr 1fr; }
-      .project-card:nth-child(1) { grid-column: span 2; }
       .services-grid { grid-template-columns: 1fr 1fr; }
       .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
       .process-steps::before { display: none; }
@@ -1172,10 +1171,9 @@
     <div class="container">
       <div class="projects-header">
         <div>
-          <span class="section-label" style="color:rgba(255,255,255,0.4)">Portfolio</span>
-          <h2 class="section-title">Our Projects</h2>
+          <h2 class="section-title" style="font-size:clamp(2rem,4.5vw,3.6rem);color:var(--white);">Our Projects</h2>
+          <p style="font-size:1.19rem;color:rgba(255,255,255,0.65);margin-top:8px;">See some of our finest work</p>
         </div>
-        <a href="#cta" class="btn btn-ghost" style="white-space:nowrap;">Discuss Your Project</a>
       </div>
 
       <div class="projects-grid">
@@ -1183,55 +1181,31 @@
         <div class="project-card">
           <div class="project-bg"></div>
           <div class="project-overlay"></div>
-          <div class="project-info">
-            <div class="project-tag">Commercial</div>
-            <h3>Commercial Architecture &amp; Renovation</h3>
-          </div>
         </div>
 
         <div class="project-card">
           <div class="project-bg"></div>
           <div class="project-overlay"></div>
-          <div class="project-info">
-            <div class="project-tag">Residential</div>
-            <h3>Custom Residential Design</h3>
-          </div>
         </div>
 
         <div class="project-card">
           <div class="project-bg"></div>
           <div class="project-overlay"></div>
-          <div class="project-info">
-            <div class="project-tag">Site Planning</div>
-            <h3>Site &amp; Master Planning</h3>
-          </div>
         </div>
 
         <div class="project-card">
           <div class="project-bg"></div>
           <div class="project-overlay"></div>
-          <div class="project-info">
-            <div class="project-tag">Historic</div>
-            <h3>Historic Preservation</h3>
-          </div>
         </div>
 
         <div class="project-card">
           <div class="project-bg"></div>
           <div class="project-overlay"></div>
-          <div class="project-info">
-            <div class="project-tag">Tenant</div>
-            <h3>Tenant Improvement Drawings</h3>
-          </div>
         </div>
 
         <div class="project-card">
           <div class="project-bg"></div>
           <div class="project-overlay"></div>
-          <div class="project-info">
-            <div class="project-tag">Assessment</div>
-            <h3>Pre-Purchase Due Diligence</h3>
-          </div>
         </div>
 
       </div>
