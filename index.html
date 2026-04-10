@@ -923,23 +923,26 @@
 
     .social-links {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .social-link {
-      width: 36px;
-      height: 36px;
+      padding: 7px 12px 7px 10px;
       border-radius: 4px;
       border: 1px solid rgba(255,255,255,0.12);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 9px;
+      text-decoration: none;
       transition: border-color 0.2s, background 0.2s;
+      width: fit-content;
     }
     .social-link:hover { border-color: var(--red); background: rgba(158,3,3,0.12); }
-    .social-link svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.55); }
+    .social-link svg { width: 15px; height: 15px; fill: rgba(255,255,255,0.55); flex-shrink: 0; }
     .social-link:hover svg { fill: var(--white); }
+    .social-link span { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .social-link:hover span { color: var(--white); }
 
     .footer-bottom {
       display: flex;
@@ -1618,28 +1621,32 @@
         <div class="footer-cell">
           <h4 class="footer-col-head">Follow Us</h4>
           <div class="social-links">
-            <a href="#" class="social-link" aria-label="Facebook">
+            <a href="https://www.facebook.com/HolemanGroupArchitects/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
               </svg>
+              <span>Facebook</span>
             </a>
-            <a href="#" class="social-link" aria-label="Instagram">
+            <a href="https://www.instagram.com/hgiarchitecture" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
+              <span>Instagram</span>
             </a>
-            <a href="#" class="social-link" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/hgiarchitecture/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
                 <circle cx="4" cy="4" r="2"/>
               </svg>
+              <span>LinkedIn</span>
             </a>
-            <a href="#" class="social-link" aria-label="X (Twitter)">
+            <a href="https://x.com/HolemanGroup" target="_blank" rel="noopener" class="social-link" aria-label="X (Twitter)">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 4l16 16M4 20L20 4"/>
               </svg>
+              <span>X</span>
             </a>
           </div>
         </div>
