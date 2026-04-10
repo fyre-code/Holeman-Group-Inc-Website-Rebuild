@@ -660,12 +660,57 @@
     ============================================================ */
     #process {
       padding: 96px 0;
-      background: var(--white);
+      background-color: var(--dark);
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px);
     }
 
     .process-header {
       text-align: center;
-      margin-bottom: 64px;
+      margin-bottom: 48px;
+    }
+
+    #process .section-title { color: var(--white); }
+
+    .process-table {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      width: 100%;
+    }
+
+    .process-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .process-cell .cell-icon {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+
+    .process-cell .cell-icon svg,
+    .process-cell .cell-icon i {
+      width: 56px;
+      height: 56px;
+      stroke: var(--red);
+      fill: none;
+      stroke-width: 2.4;
+      color: var(--red);
+    }
+
+    .process-cell h3 {
+      font-size: clamp(1.375rem, calc(4.5vw - 0.625rem), 2.975rem);
+      font-weight: 700;
+      color: var(--white);
     }
 
     .process-steps {
@@ -928,8 +973,7 @@
       .why-grid { grid-template-columns: 1fr; }
       .projects-grid { grid-template-columns: 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr; }
-      .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .process-steps::before { display: none; }
+      .process-table { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
     }
 
@@ -937,7 +981,7 @@
       .projects-grid { grid-template-columns: 1fr; }
       .project-card:nth-child(1) { grid-column: span 1; }
       .services-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr; }
+      .process-table { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
@@ -1363,35 +1407,29 @@
   <section id="process">
     <div class="container">
       <div class="process-header">
-        <span class="section-label">How It Works</span>
         <h2 class="section-title">Our Process</h2>
-        <p class="section-sub" style="margin:0 auto;">Four clear steps from your first conversation to permitted, buildable drawings — no surprises.</p>
       </div>
 
-      <div class="process-steps">
+      <div class="process-table">
 
-        <div class="process-step">
-          <div class="step-num">01</div>
-          <div class="step-label">Book</div>
-          <p class="step-desc">Schedule your free 15-minute consult. No pressure, no commitment — just clarity on whether we're a fit.</p>
+        <div class="process-cell">
+          <div class="cell-icon"><i data-lucide="calendar-check"></i></div>
+          <h3>Book</h3>
         </div>
 
-        <div class="process-step">
-          <div class="step-num">02</div>
-          <div class="step-label">Evaluate</div>
-          <p class="step-desc">We assess your site, program goals, budget realities, and timeline to build a shared roadmap.</p>
+        <div class="process-cell">
+          <div class="cell-icon"><i data-lucide="clipboard-list"></i></div>
+          <h3>Evaluate</h3>
         </div>
 
-        <div class="process-step">
-          <div class="step-num">03</div>
-          <div class="step-label">Design</div>
-          <p class="step-desc">Holistic, balanced design developed in close collaboration — so the final drawings reflect your vision exactly.</p>
+        <div class="process-cell">
+          <div class="cell-icon"><i data-lucide="pencil-ruler"></i></div>
+          <h3>Design</h3>
         </div>
 
-        <div class="process-step">
-          <div class="step-num">04</div>
-          <div class="step-label">Deliver</div>
-          <p class="step-desc">Permitted, buildable drawings delivered on time — ready for your contractor to break ground with confidence.</p>
+        <div class="process-cell">
+          <div class="cell-icon"><i data-lucide="package-check"></i></div>
+          <h3>Deliver</h3>
         </div>
 
       </div>
