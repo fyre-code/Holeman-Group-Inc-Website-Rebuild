@@ -783,14 +783,26 @@
       overflow: hidden;
     }
 
-    #cta::before {
-      content: '';
+    .cta-deco {
       position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px),
-        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px);
+      top: 0;
+      width: 160px;
+      height: 100%;
       pointer-events: none;
+    }
+
+    .cta-deco-left  { left: 0; }
+    .cta-deco-right { right: 0; }
+
+    .cta-deco svg {
+      width: 100%;
+      height: 100%;
+      stroke: rgba(255,255,255,1);
+      fill: none;
+      stroke-width: 0.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.22;
     }
 
     .cta-inner {
@@ -802,7 +814,7 @@
     #cta .section-label { color: rgba(255,255,255,0.6); }
 
     .cta-headline {
-      font-size: clamp(1.8rem, 3.8vw, 3rem);
+      font-size: clamp(2rem, 4.5vw, 3.6rem);
       font-weight: 800;
       color: var(--white);
       line-height: 1.12;
@@ -1381,7 +1393,7 @@
 
     <div class="container">
       <div class="services-header">
-        <h2 class="section-title">Services</h2>
+        <h2 class="section-title" style="font-size:clamp(2rem,4.5vw,3.6rem);">Services</h2>
       </div>
 
       <ul class="services-list">
@@ -1444,10 +1456,114 @@
        STOP GUESSING CTA
   ============================================================ -->
   <section id="cta">
+
+    <div class="cta-deco cta-deco-left" aria-hidden="true">
+      <svg viewBox="0 0 160 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Dimension line -->
+        <line x1="20" y1="60" x2="140" y2="60"/>
+        <line x1="20" y1="53" x2="20" y2="67"/>
+        <line x1="140" y1="53" x2="140" y2="67"/>
+        <line x1="20" y1="67" x2="20" y2="84"/>
+        <line x1="140" y1="67" x2="140" y2="84"/>
+        <!-- Room with door swing -->
+        <polyline points="20,140 20,260 140,260 140,170 100,170 100,140 20,140"/>
+        <line x1="20" y1="200" x2="140" y2="200"/>
+        <rect x="48" y="222" width="24" height="38"/>
+        <rect x="26" y="148" width="20" height="14"/>
+        <rect x="104" y="148" width="20" height="14"/>
+        <path d="M48,260 A24,24 0 0,0 24,236"/>
+        <!-- Angled tick line -->
+        <line x1="10" y1="310" x2="150" y2="355"/>
+        <line x1="34" y1="313" x2="30" y2="327"/>
+        <line x1="58" y1="322" x2="54" y2="336"/>
+        <line x1="82" y1="331" x2="78" y2="345"/>
+        <line x1="106" y1="340" x2="102" y2="354"/>
+        <!-- Corner angle -->
+        <polyline points="140,410 90,410 90,360"/>
+        <path d="M90,388 L110,388 L110,410"/>
+        <!-- Arc -->
+        <path d="M15,450 A65,65 0 0,1 80,400"/>
+        <!-- Building elevation -->
+        <polyline points="20,490 80,462 140,490 140,580 20,580 20,490"/>
+        <line x1="20" y1="528" x2="140" y2="528"/>
+        <rect x="58" y="542" width="30" height="38"/>
+        <rect x="28" y="498" width="20" height="16"/>
+        <rect x="102" y="498" width="20" height="16"/>
+        <!-- Accent lines -->
+        <line x1="10" y1="620" x2="150" y2="660"/>
+        <line x1="10" y1="650" x2="150" y2="690"/>
+        <!-- Grid near bottom -->
+        <line x1="25" y1="720" x2="135" y2="720"/>
+        <line x1="25" y1="770" x2="135" y2="770"/>
+        <line x1="25" y1="820" x2="135" y2="820"/>
+        <line x1="25" y1="720" x2="25" y2="820"/>
+        <line x1="80" y1="720" x2="80" y2="820"/>
+        <line x1="135" y1="720" x2="135" y2="820"/>
+        <circle cx="25"  cy="720" r="4"/>
+        <circle cx="80"  cy="720" r="4"/>
+        <circle cx="135" cy="720" r="4"/>
+        <circle cx="25"  cy="770" r="4"/>
+        <circle cx="80"  cy="770" r="4"/>
+        <circle cx="135" cy="770" r="4"/>
+        <circle cx="25"  cy="820" r="4"/>
+        <circle cx="80"  cy="820" r="4"/>
+        <circle cx="135" cy="820" r="4"/>
+        <!-- Final arc -->
+        <path d="M20,880 A60,60 0 0,1 80,840"/>
+      </svg>
+    </div>
+
+    <div class="cta-deco cta-deco-right" aria-hidden="true">
+      <svg viewBox="0 0 160 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- L-shaped footprint -->
+        <polyline points="140,50 50,50 50,160 90,160 90,100 140,100 140,50"/>
+        <rect x="78" y="65" width="28" height="22"/>
+        <!-- Dimension line -->
+        <line x1="38" y1="178" x2="150" y2="178"/>
+        <line x1="38" y1="171" x2="38" y2="185"/>
+        <line x1="150" y1="171" x2="150" y2="185"/>
+        <line x1="38" y1="185" x2="38" y2="200"/>
+        <line x1="150" y1="185" x2="150" y2="200"/>
+        <!-- Tick line -->
+        <line x1="20" y1="240" x2="150" y2="280"/>
+        <line x1="43" y1="243" x2="39" y2="257"/>
+        <line x1="66" y1="252" x2="62" y2="266"/>
+        <line x1="89" y1="261" x2="85" y2="275"/>
+        <line x1="112" y1="270" x2="108" y2="284"/>
+        <!-- Arc -->
+        <path d="M140,330 A65,65 0 0,0 75,285"/>
+        <!-- Corner bracket -->
+        <polyline points="20,390 20,345 65,345"/>
+        <path d="M20,368 L38,368 L38,390"/>
+        <!-- Room footprint -->
+        <polyline points="25,430 25,545 140,545 140,430 25,430"/>
+        <line x1="25" y1="488" x2="140" y2="488"/>
+        <path d="M80,545 A28,28 0 0,0 80,517"/>
+        <rect x="35" y="436" width="22" height="16"/>
+        <rect x="98" y="436" width="22" height="16"/>
+        <!-- Accent lines -->
+        <line x1="10" y1="590" x2="150" y2="628"/>
+        <line x1="10" y1="620" x2="150" y2="658"/>
+        <!-- Elevation with pitched roof -->
+        <polyline points="20,680 80,652 140,680 140,760 20,760 20,680"/>
+        <line x1="20" y1="718" x2="140" y2="718"/>
+        <rect x="60" y="730" width="30" height="30"/>
+        <!-- Dimension line bottom -->
+        <line x1="15" y1="800" x2="145" y2="800"/>
+        <line x1="15" y1="793" x2="15" y2="807"/>
+        <line x1="145" y1="793" x2="145" y2="807"/>
+        <line x1="15" y1="807" x2="15" y2="822"/>
+        <line x1="145" y1="807" x2="145" y2="822"/>
+        <!-- Final angle mark -->
+        <polyline points="140,875 140,840 105,840"/>
+        <path d="M140,858 L122,858 L122,875"/>
+      </svg>
+    </div>
+
     <div class="container">
       <div class="cta-inner">
         <h2 class="cta-headline">Stop Guessing.</h2>
-        <p style="font-size:clamp(1.375rem,calc(4.5vw - 0.625rem),2.975rem);font-weight:700;color:var(--white);margin-bottom:20px;">Get a Clear Plan in 15 Minutes.</p>
+        <p style="font-size:clamp(1.375rem,calc(4.5vw - 0.625rem),2.975rem);font-weight:700;color:rgba(255,255,255,0.85);margin-bottom:20px;">Get a Clear Plan in 15 Minutes.</p>
         <p class="cta-body">Bring us your idea (or property). We'll show you what's possible, what it will take, and the smartest next step.</p>
         <div style="display:inline-flex;flex-direction:column;align-items:stretch;gap:14px;">
           <a href="tel:+13217687887" class="btn cta-btn" style="text-align:center;justify-content:center;">Book a Free Consult</a>
