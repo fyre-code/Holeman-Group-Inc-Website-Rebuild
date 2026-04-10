@@ -401,25 +401,7 @@
       position: relative;
       overflow: hidden;
       text-align: center;
-      transition: transform 0.25s, box-shadow 0.25s;
     }
-
-    .why-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.09);
-    }
-
-    .why-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--red);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .why-card:hover::before { transform: scaleX(1); }
 
     .why-icon {
       width: 60px;
