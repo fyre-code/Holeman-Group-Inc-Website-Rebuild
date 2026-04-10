@@ -1006,60 +1006,122 @@
 
     <!-- Left decorative drafting shapes -->
     <div class="why-deco why-deco-left" aria-hidden="true">
-      <svg viewBox="0 0 160 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 160 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Angled dimension line -->
         <line x1="20" y1="60" x2="110" y2="120"/>
         <line x1="20" y1="53" x2="20" y2="67"/>
         <line x1="110" y1="113" x2="110" y2="127"/>
-        <!-- Extension lines -->
         <line x1="20" y1="67" x2="20" y2="90"/>
         <line x1="110" y1="127" x2="110" y2="148"/>
-        <!-- Angled building elevation outline -->
-        <polyline points="30,160 30,260 130,260 130,195 90,195 90,160 30,160"/>
-        <line x1="30" y1="210" x2="130" y2="210"/>
-        <rect x="55" y="225" width="22" height="35"/>
-        <rect x="38" y="168" width="18" height="14"/>
-        <rect x="98" y="168" width="18" height="14"/>
-        <!-- Small arc (door swing) -->
-        <path d="M55,260 A22,22 0 0,0 33,238"/>
-        <!-- Tick marks on a slanted line -->
-        <line x1="10" y1="300" x2="90" y2="340"/>
-        <line x1="26" y1="302" x2="22" y2="314"/>
-        <line x1="42" y1="311" x2="38" y2="323"/>
-        <line x1="58" y1="320" x2="54" y2="332"/>
-        <line x1="74" y1="329" x2="70" y2="341"/>
+        <!-- Building elevation -->
+        <polyline points="30,160 30,270 130,270 130,195 90,195 90,160 30,160"/>
+        <line x1="30" y1="215" x2="130" y2="215"/>
+        <rect x="55" y="232" width="22" height="38"/>
+        <rect x="38" y="170" width="18" height="14"/>
+        <rect x="98" y="170" width="18" height="14"/>
+        <path d="M55,270 A22,22 0 0,0 33,248"/>
+        <!-- Tick measurement line -->
+        <line x1="10" y1="310" x2="100" y2="355"/>
+        <line x1="26" y1="312" x2="22" y2="326"/>
+        <line x1="42" y1="320" x2="38" y2="334"/>
+        <line x1="58" y1="329" x2="54" y2="343"/>
+        <line x1="74" y1="338" x2="70" y2="352"/>
         <!-- Corner angle mark -->
-        <polyline points="120,350 80,350 80,310"/>
-        <path d="M80,335 L95,335 L95,350"/>
+        <polyline points="120,400 75,400 75,355"/>
+        <path d="M75,378 L92,378 L92,400"/>
+        <!-- Arc segment -->
+        <path d="M15,440 A70,70 0 0,1 85,395"/>
+        <!-- Long angled line with ticks -->
+        <line x1="140" y1="450" x2="20" y2="560"/>
+        <line x1="116" y1="458" x2="120" y2="470"/>
+        <line x1="92"  y1="480" x2="96"  y2="492"/>
+        <line x1="68"  y1="502" x2="72"  y2="514"/>
+        <line x1="44"  y1="524" x2="48"  y2="536"/>
+        <!-- Room footprint -->
+        <polyline points="25,590 25,700 125,700 125,590 25,590"/>
+        <line x1="25" y1="640" x2="125" y2="640"/>
+        <!-- Door in bottom wall -->
+        <line x1="70" y1="700" x2="95" y2="700" stroke-dasharray="0"/>
+        <path d="M70,700 A25,25 0 0,0 70,675"/>
+        <!-- Window marks top wall -->
+        <line x1="45" y1="590" x2="45" y2="600"/>
+        <line x1="50" y1="590" x2="50" y2="600"/>
+        <line x1="55" y1="590" x2="55" y2="600"/>
+        <line x1="90" y1="590" x2="90" y2="600"/>
+        <line x1="95" y1="590" x2="95" y2="600"/>
+        <line x1="100" y1="590" x2="100" y2="600"/>
+        <!-- Dimension line at bottom -->
+        <line x1="15" y1="730" x2="135" y2="730"/>
+        <line x1="15" y1="723" x2="15" y2="737"/>
+        <line x1="135" y1="723" x2="135" y2="737"/>
+        <line x1="15" y1="737" x2="15" y2="752"/>
+        <line x1="135" y1="737" x2="135" y2="752"/>
+        <!-- Angle mark bottom corner -->
+        <polyline points="30,820 30,775 75,775"/>
+        <path d="M30,800 L48,800 L48,820"/>
+        <!-- Final angled accent lines -->
+        <line x1="50" y1="840" x2="150" y2="880"/>
+        <line x1="10" y1="855" x2="110" y2="895"/>
       </svg>
     </div>
 
     <!-- Right decorative drafting shapes -->
     <div class="why-deco why-deco-right" aria-hidden="true">
-      <svg viewBox="0 0 160 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 160 900" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <!-- L-shaped footprint -->
-        <polyline points="140,50 50,50 50,150 90,150 90,100 140,100 140,50"/>
-        <!-- Interior core box -->
+        <polyline points="140,50 50,50 50,155 90,155 90,100 140,100 140,50"/>
         <rect x="80" y="65" width="28" height="22"/>
-        <!-- Dimension line across footprint -->
-        <line x1="40" y1="165" x2="150" y2="165"/>
-        <line x1="40" y1="158" x2="40" y2="172"/>
-        <line x1="150" y1="158" x2="150" y2="172"/>
-        <line x1="40" y1="172" x2="40" y2="188"/>
-        <line x1="150" y1="172" x2="150" y2="188"/>
-        <!-- Angled grid lines -->
-        <line x1="30" y1="210" x2="150" y2="250"/>
-        <line x1="30" y1="240" x2="150" y2="280"/>
-        <line x1="30" y1="270" x2="150" y2="310"/>
-        <line x1="55" y1="205" x2="75" y2="320"/>
-        <line x1="95" y1="215" x2="115" y2="330"/>
-        <!-- Column circles at intersections -->
-        <circle cx="55" cy="213" r="4"/>
-        <circle cx="95" cy="218" r="4"/>
-        <circle cx="55" cy="243" r="4"/>
-        <circle cx="95" cy="248" r="4"/>
+        <!-- Dimension line -->
+        <line x1="40" y1="170" x2="150" y2="170"/>
+        <line x1="40" y1="163" x2="40" y2="177"/>
+        <line x1="150" y1="163" x2="150" y2="177"/>
+        <line x1="40" y1="177" x2="40" y2="193"/>
+        <line x1="150" y1="177" x2="150" y2="193"/>
+        <!-- Angled grid with column circles -->
+        <line x1="30" y1="220" x2="150" y2="262"/>
+        <line x1="30" y1="252" x2="150" y2="294"/>
+        <line x1="30" y1="284" x2="150" y2="326"/>
+        <line x1="55" y1="215" x2="75" y2="340"/>
+        <line x1="95" y1="223" x2="115" y2="348"/>
+        <circle cx="55" cy="223" r="4"/>
+        <circle cx="95" cy="228" r="4"/>
+        <circle cx="55" cy="255" r="4"/>
+        <circle cx="95" cy="260" r="4"/>
+        <circle cx="55" cy="287" r="4"/>
+        <circle cx="95" cy="292" r="4"/>
         <!-- Arc segment -->
-        <path d="M30,340 A55,55 0 0,1 85,300"/>
+        <path d="M20,360 A65,65 0 0,1 85,310"/>
+        <!-- Elevation side view -->
+        <polyline points="25,395 25,510 135,510 135,395 25,395"/>
+        <line x1="25" y1="445" x2="135" y2="445"/>
+        <line x1="25" y1="475" x2="135" y2="475"/>
+        <rect x="62" y="475" width="28" height="35"/>
+        <!-- Roof peak -->
+        <polyline points="25,395 80,365 135,395"/>
+        <!-- Tick line -->
+        <line x1="20" y1="545" x2="140" y2="590"/>
+        <line x1="40" y1="548" x2="36" y2="562"/>
+        <line x1="60" y1="557" x2="56" y2="571"/>
+        <line x1="80" y1="566" x2="76" y2="580"/>
+        <line x1="100" y1="575" x2="96" y2="589"/>
+        <line x1="120" y1="584" x2="116" y2="598"/>
+        <!-- Corner bracket -->
+        <polyline points="145,630 100,630 100,580"/>
+        <path d="M100,608 L118,608 L118,630"/>
+        <!-- Long angled accent lines -->
+        <line x1="10" y1="660" x2="150" y2="700"/>
+        <line x1="10" y1="695" x2="150" y2="735"/>
+        <!-- Dimension line near bottom -->
+        <line x1="20" y1="760" x2="140" y2="760"/>
+        <line x1="20" y1="753" x2="20" y2="767"/>
+        <line x1="140" y1="753" x2="140" y2="767"/>
+        <line x1="20" y1="767" x2="20" y2="782"/>
+        <line x1="140" y1="767" x2="140" y2="782"/>
+        <!-- Final arc -->
+        <path d="M140,840 A70,70 0 0,0 70,800"/>
+        <!-- Bottom angle mark -->
+        <polyline points="20,880 20,840 60,840"/>
+        <path d="M20,860 L38,860 L38,880"/>
       </svg>
     </div>
 
