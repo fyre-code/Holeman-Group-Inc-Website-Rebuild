@@ -865,10 +865,11 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 48px;
-      padding-bottom: 56px;
+      padding-bottom: 40px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      align-items: start;
     }
 
     .footer-brand p {
@@ -879,7 +880,7 @@
       max-width: 260px;
     }
 
-    .footer-col h4 {
+    .footer-col-head, .footer-col h4 {
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.16em;
@@ -1581,16 +1582,16 @@
     <div class="container">
       <div class="footer-grid">
 
-        <div class="footer-brand">
+        <!-- Cell 1: Logo -->
+        <div class="footer-cell" style="display:flex;align-items:center;justify-content:center;">
           <a href="#hero" class="logo" aria-label="Holeman Group Inc — Home">
             <img src="https://pbrlhyansxjdndccwtau.supabase.co/storage/v1/object/public/media-public/baa746bb-53f4-48f7-9124-3ada5476e94f/root/1775673151472_holeman-group-architect-logo.png" alt="Holeman Group Inc architectural design and construction company logo">
           </a>
-          <p>Established 1987. Holistic, balanced, and trusted architecture, planning, and interior design services in Melbourne, Florida.</p>
         </div>
 
-        <div class="footer-col">
-          <h4>Contact</h4>
-
+        <!-- Cell 2: Office -->
+        <div class="footer-cell">
+          <h4 class="footer-col-head">Office</h4>
           <div class="footer-contact-item">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
@@ -1598,14 +1599,12 @@
             </svg>
             <span>3684 N Wickham Rd, Ste. C<br>Melbourne, FL 32935</span>
           </div>
-
           <div class="footer-contact-item">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.02z"/>
             </svg>
             <span><a href="tel:+13217687887" style="color:rgba(255,255,255,0.55)">(321) 768-7887</a></span>
           </div>
-
           <div class="footer-contact-item">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10"/>
@@ -1615,18 +1614,15 @@
           </div>
         </div>
 
-        <div class="footer-col">
-          <h4>Connect</h4>
+        <!-- Cell 3: Follow Us -->
+        <div class="footer-cell">
+          <h4 class="footer-col-head">Follow Us</h4>
           <div class="social-links">
-
-            <!-- Facebook -->
             <a href="#" class="social-link" aria-label="Facebook">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
               </svg>
             </a>
-
-            <!-- Instagram -->
             <a href="#" class="social-link" aria-label="Instagram">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -1634,22 +1630,17 @@
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
               </svg>
             </a>
-
-            <!-- LinkedIn -->
             <a href="#" class="social-link" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
                 <circle cx="4" cy="4" r="2"/>
               </svg>
             </a>
-
-            <!-- X / Twitter -->
             <a href="#" class="social-link" aria-label="X (Twitter)">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 4l16 16M4 20L20 4"/>
               </svg>
             </a>
-
           </div>
         </div>
 
@@ -1657,7 +1648,7 @@
 
       <div class="footer-bottom">
         <span>© 2025 Holeman Group Architecture + Innovations. All rights reserved.</span>
-        <span>Melbourne, FL &nbsp;|&nbsp; Established 1987</span>
+        <a href="https://hyppohq.ai/systems/website" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.35);transition:color 0.2s;">Powered by HyppoAI</a>
       </div>
     </div>
   </footer>
