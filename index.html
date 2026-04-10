@@ -1380,33 +1380,56 @@
       }
       window.addEventListener('resize', resize);
 
-      /* ---- Element types ---- */
-      const TYPES = ['line', 'arc', 'angle', 'ticks', 'cross', 'bracket'];
+      /* ---- Helper: draw a polyline up to `progress` fraction of total length ---- */
+      function drawPolyline(pts, progress) {
+        if (pts.length < 2 || progress <= 0) return;
+        let segs = [], total = 0;
+        for (let i = 0; i < pts.length - 1; i++) {
+          const len = Math.hypot(pts[i+1][0]-pts[i][0], pts[i+1][1]-pts[i][1]);
+          segs.push(len); total += len;
+        }
+        let rem = progress * total;
+        ctx.beginPath();
+        ctx.moveTo(pts[0][0], pts[0][1]);
+        for (let i = 0; i < pts.length - 1; i++) {
+          if (rem <= 0) break;
+          if (rem >= segs[i]) {
+            ctx.lineTo(pts[i+1][0], pts[i+1][1]);
+            rem -= segs[i];
+          } else {
+            const t = rem / segs[i];
+            ctx.lineTo(pts[i][0]+(pts[i+1][0]-pts[i][0])*t, pts[i][1]+(pts[i+1][1]-pts[i][1])*t);
+            break;
+          }
+        }
+        ctx.stroke();
+      }
 
-      /* ---- Each element has: type, phase, progress, opacity, params ---- */
+      /* ---- Architectural element types ---- */
+      const TYPES = ['room', 'grid', 'dimension', 'elevation', 'footprint'];
+
       class DraftElement {
         constructor() { this.reset(); }
 
         reset() {
           this.type     = TYPES[Math.floor(Math.random() * TYPES.length)];
-          this.phase    = 'drawing';   // drawing → hold → fading
-          this.progress = 0;           // 0 → 1 during drawing
+          this.phase    = 'drawing';
+          this.progress = 0;
           this.opacity  = 0;
           this.holdTime = 0;
-          this.accent   = Math.random() < 0.12;  // occasional red accent
+          this.accent   = Math.random() < 0.10;
 
-          // Place elements away from the center text block
+          // Keep elements in the left/right periphery away from the center headline
           const zone = Math.random() < 0.5 ? 'left' : 'right';
           if (zone === 'left') {
-            this.x = Math.random() * W * 0.32;
+            this.x = 30 + Math.random() * Math.max(W * 0.28 - 30, 20);
           } else {
-            this.x = W * 0.68 + Math.random() * W * 0.32;
+            this.x = W * 0.72 + Math.random() * Math.max(W * 0.26 - 30, 20);
           }
-          this.y     = H * 0.08 + Math.random() * H * 0.84;
-          this.angle = (Math.random() * Math.PI * 2);
-          this.size  = 60 + Math.random() * 120;
-          this.speed = 0.004 + Math.random() * 0.006; // progress per frame
-          this.maxOpacity = this.accent ? 0.75 : (0.45 + Math.random() * 0.30);
+          this.y    = H * 0.08 + Math.random() * H * 0.84;
+          this.sc   = 0.65 + Math.random() * 0.55;
+          this.speed = 0.0022 + Math.random() * 0.0030;
+          this.maxOpacity = this.accent ? 0.72 : (0.42 + Math.random() * 0.26);
         }
 
         draw() {
@@ -1414,135 +1437,212 @@
           ctx.save();
           ctx.globalAlpha = this.opacity;
           ctx.strokeStyle = this.accent ? 'rgba(158,3,3,1)' : 'rgba(255,255,255,1)';
-          ctx.lineWidth   = this.accent ? 1.4 : 1.0;
+          ctx.lineWidth   = this.accent ? 1.3 : 1.0;
           ctx.lineCap     = 'round';
+          ctx.lineJoin    = 'round';
+          ctx.translate(this.x, this.y);
 
-          const p = this.progress;  // 0..1 drawn so far
-          const s = this.size;
+          const p  = this.progress;
+          const sc = this.sc;
 
           switch (this.type) {
 
-            case 'line': {
-              ctx.translate(this.x, this.y);
-              ctx.rotate(this.angle);
-              ctx.beginPath();
-              ctx.moveTo(0, 0);
-              ctx.lineTo(s * p, 0);
-              ctx.stroke();
-              // tick at end
-              if (p > 0.9) {
-                const tp = (p - 0.9) / 0.1;
+            case 'room': {
+              // Plan-view room with door opening and swing arc
+              const w = 88*sc, h = 66*sc, dw = 22*sc;
+              // Right portion of perimeter (top → right → bottom-right to door)
+              const rPts = [[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[dw/2,h/2]];
+              const rLen = w + h + (w/2 - dw/2);
+              // Left portion (from door gap → left wall)
+              const lPts = [[-dw/2,h/2],[-w/2,h/2],[-w/2,-h/2]];
+              const lLen = (w/2 - dw/2) + h;
+              const total = rLen + lLen;
+
+              drawPolyline(rPts, Math.min(p * total / rLen, 1));
+              const leftDrawn = Math.max(0, p * total - rLen);
+              if (leftDrawn > 0) drawPolyline(lPts, leftDrawn / lLen);
+
+              // Door leaf + swing arc
+              if (p > 0.65) {
+                const dp = Math.min((p - 0.65) / 0.28, 1);
                 ctx.beginPath();
-                ctx.moveTo(s, -5 * tp);
-                ctx.lineTo(s,  5 * tp);
+                ctx.moveTo(dw/2, h/2);
+                ctx.lineTo(dw/2, h/2 - dw * dp);
                 ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(dw/2, h/2, dw, -Math.PI/2, -Math.PI/2 + (Math.PI/2)*dp);
+                ctx.stroke();
+              }
+
+              // Window marks on top wall (three fine parallel lines)
+              if (p > 0.88) {
+                const wp = (p - 0.88) / 0.12;
+                const ww = 22*sc*wp;
+                ctx.lineWidth = 0.65;
+                for (let i = -1; i <= 1; i++) {
+                  ctx.beginPath();
+                  ctx.moveTo(-11*sc, -h/2 + i*3*sc);
+                  ctx.lineTo(-11*sc + ww, -h/2 + i*3*sc);
+                  ctx.stroke();
+                }
               }
               break;
             }
 
-            case 'arc': {
-              ctx.translate(this.x, this.y);
-              const r = s * 0.5;
-              const sweep = (Math.PI * 0.8) * p;
-              ctx.beginPath();
-              ctx.arc(0, 0, r, this.angle, this.angle + sweep);
-              ctx.stroke();
-              break;
-            }
+            case 'grid': {
+              // 3×3 structural column grid
+              const gx = 44*sc, gy = 36*sc;
+              const ox = -gx, oy = -gy;
+              // 3 horizontal + 3 vertical = 6 lines; columns after
+              const linePhase = Math.min(p / 0.76, 1);
+              const linesFull = Math.floor(linePhase * 6);
+              const linePart  = (linePhase * 6) - linesFull;
 
-            case 'angle': {
-              ctx.translate(this.x, this.y);
-              ctx.rotate(this.angle);
-              const arm = s * 0.55;
-              const half = p < 0.5 ? p * 2 : 1;
-              const half2 = p > 0.5 ? (p - 0.5) * 2 : 0;
-              ctx.beginPath();
-              ctx.moveTo(0, 0);
-              ctx.lineTo(arm * half, 0);
-              ctx.stroke();
-              ctx.beginPath();
-              ctx.moveTo(0, 0);
-              ctx.lineTo(0, arm * half2);
-              ctx.stroke();
-              // small arc indicating angle
-              if (p > 0.85) {
-                const ap = (p - 0.85) / 0.15;
-                ctx.beginPath();
-                ctx.arc(0, 0, arm * 0.25, 0, (Math.PI * 0.5) * ap);
-                ctx.stroke();
+              for (let i = 0; i < 3; i++) {
+                const li = i;
+                const lp = li < linesFull ? 1 : (li === linesFull ? linePart : 0);
+                if (lp > 0) {
+                  ctx.beginPath();
+                  ctx.moveTo(ox, oy + i*gy);
+                  ctx.lineTo(ox + 2*gx*lp, oy + i*gy);
+                  ctx.stroke();
+                }
+                const vi = i + 3;
+                const vp = vi < linesFull ? 1 : (vi === linesFull ? linePart : 0);
+                if (vp > 0) {
+                  ctx.beginPath();
+                  ctx.moveTo(ox + i*gx, oy);
+                  ctx.lineTo(ox + i*gx, oy + 2*gy*vp);
+                  ctx.stroke();
+                }
+              }
+
+              // Column circle markers
+              if (p > 0.76) {
+                const cp = (p - 0.76) / 0.24;
+                const r  = 5*sc*cp;
+                for (let row = 0; row < 3; row++) {
+                  for (let col = 0; col < 3; col++) {
+                    ctx.beginPath();
+                    ctx.arc(ox + col*gx, oy + row*gy, r, 0, Math.PI*2);
+                    ctx.stroke();
+                  }
+                }
               }
               break;
             }
 
-            case 'ticks': {
-              ctx.translate(this.x, this.y);
-              ctx.rotate(this.angle);
-              const count = 7;
-              const spacing = s / count;
-              const shown = Math.ceil(p * count);
+            case 'dimension': {
+              // Architectural dimension line with end ticks + extension lines
+              const dl = 82*sc, tick = 9*sc;
+
+              // Main line
               ctx.beginPath();
-              ctx.moveTo(0, 0);
-              ctx.lineTo(s * p, 0);
+              ctx.moveTo(-dl/2, 0);
+              ctx.lineTo(-dl/2 + dl * Math.min(p/0.38, 1), 0);
               ctx.stroke();
-              for (let i = 0; i < shown; i++) {
-                const tx = i * spacing;
-                const th = (i % 3 === 0) ? 7 : 4;
-                ctx.beginPath();
-                ctx.moveTo(tx, -th / 2);
-                ctx.lineTo(tx,  th / 2);
-                ctx.stroke();
+
+              // End ticks
+              if (p > 0.38) {
+                const tp = Math.min((p-0.38)/0.22, 1);
+                ctx.beginPath(); ctx.moveTo(-dl/2,-tick/2*tp); ctx.lineTo(-dl/2, tick/2*tp); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo( dl/2,-tick/2*tp); ctx.lineTo( dl/2, tick/2*tp); ctx.stroke();
+              }
+
+              // Extension lines downward
+              if (p > 0.60) {
+                const ep = Math.min((p-0.60)/0.22, 1);
+                const ext = 14*sc*ep;
+                ctx.lineWidth *= 0.7;
+                ctx.beginPath(); ctx.moveTo(-dl/2, tick/2); ctx.lineTo(-dl/2, tick/2+ext); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo( dl/2, tick/2); ctx.lineTo( dl/2, tick/2+ext); ctx.stroke();
+              }
+
+              // Label indicator (two short horizontal marks above)
+              if (p > 0.82) {
+                const lp = (p-0.82)/0.18;
+                ctx.lineWidth *= 0.55;
+                ctx.beginPath(); ctx.moveTo(-10*sc,-7*sc*lp); ctx.lineTo(10*sc,-7*sc*lp); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(-7*sc,-11*sc*lp); ctx.lineTo( 7*sc,-11*sc*lp); ctx.stroke();
               }
               break;
             }
 
-            case 'cross': {
-              ctx.translate(this.x, this.y);
-              ctx.rotate(this.angle);
-              const cs = s * 0.35;
-              const hh = p < 0.5 ? p * 2 : 1;
-              const vv = p > 0.5 ? (p - 0.5) * 2 : 0;
+            case 'elevation': {
+              // Front building elevation
+              const bw = 98*sc, bh = 60*sc;
+
+              // Ground line
               ctx.beginPath();
-              ctx.moveTo(-cs * hh, 0);
-              ctx.lineTo(cs * hh, 0);
+              ctx.moveTo(-bw/2-12*sc, bh/2);
+              ctx.lineTo(-bw/2-12*sc + (bw+24*sc)*Math.min(p/0.14,1), bh/2);
               ctx.stroke();
-              ctx.beginPath();
-              ctx.moveTo(0, -cs * vv);
-              ctx.lineTo(0,  cs * vv);
-              ctx.stroke();
-              // outer circle
-              if (p > 0.8) {
-                const cp = (p - 0.8) / 0.2;
-                ctx.beginPath();
-                ctx.arc(0, 0, cs * 0.4, 0, Math.PI * 2 * cp);
-                ctx.stroke();
+
+              // Left wall
+              if (p > 0.14) {
+                const wp = Math.min((p-0.14)/0.18,1);
+                ctx.beginPath(); ctx.moveTo(-bw/2,bh/2); ctx.lineTo(-bw/2, bh/2-bh*wp); ctx.stroke();
+              }
+              // Right wall
+              if (p > 0.18) {
+                const wp = Math.min((p-0.18)/0.18,1);
+                ctx.beginPath(); ctx.moveTo(bw/2,bh/2); ctx.lineTo(bw/2, bh/2-bh*wp); ctx.stroke();
+              }
+              // Roof
+              if (p > 0.36) {
+                const rp = Math.min((p-0.36)/0.18,1);
+                ctx.beginPath(); ctx.moveTo(-bw/2,-bh/2); ctx.lineTo(-bw/2+bw*rp,-bh/2); ctx.stroke();
+              }
+              // Parapet cap
+              if (p > 0.54) {
+                const pp = Math.min((p-0.54)/0.10,1);
+                ctx.lineWidth *= 1.6;
+                ctx.beginPath(); ctx.moveTo(-bw/2,-bh/2-5*sc*pp); ctx.lineTo(bw/2,-bh/2-5*sc*pp); ctx.stroke();
+                ctx.lineWidth /= 1.6;
+              }
+              // Door
+              if (p > 0.64) {
+                const dp = Math.min((p-0.64)/0.16,1);
+                const dw2=14*sc, dh2=26*sc;
+                ctx.beginPath(); ctx.moveTo(-dw2/2,bh/2); ctx.lineTo(-dw2/2,bh/2-dh2*dp); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo( dw2/2,bh/2); ctx.lineTo( dw2/2,bh/2-dh2*dp); ctx.stroke();
+                if (dp > 0.92) {
+                  ctx.beginPath(); ctx.moveTo(-dw2/2,bh/2-dh2); ctx.lineTo(dw2/2,bh/2-dh2); ctx.stroke();
+                }
+              }
+              // Windows (two)
+              if (p > 0.80) {
+                const wp2 = (p-0.80)/0.20;
+                const ww2=18*sc*wp2, wh2=14*sc*wp2;
+                const wy=-bh/4;
+                ctx.lineWidth *= 0.8;
+                ctx.strokeRect(-bw/2+16*sc, wy-wh2/2, ww2, wh2);
+                ctx.strokeRect( bw/2-16*sc-18*sc*wp2, wy-wh2/2, ww2, wh2);
               }
               break;
             }
 
-            case 'bracket': {
-              ctx.translate(this.x, this.y);
-              ctx.rotate(this.angle);
-              const bh  = s * 0.55;
-              const bsw = s * 0.25;
-              const p1  = p < 0.33 ? p * 3 : 1;
-              const p2  = p > 0.33 && p < 0.66 ? (p - 0.33) * 3 : (p >= 0.66 ? 1 : 0);
-              const p3  = p > 0.66 ? (p - 0.66) * 3 : 0;
-              ctx.beginPath();
-              ctx.moveTo(bsw, 0);
-              ctx.lineTo(0, 0);
-              ctx.lineTo(0, bh * p1);
-              ctx.stroke();
-              if (p2 > 0) {
-                ctx.beginPath();
-                ctx.moveTo(0, bh);
-                ctx.lineTo(bsw * p2, bh);
-                ctx.stroke();
-              }
-              if (p3 > 0) {
-                ctx.beginPath();
-                ctx.moveTo(0, bh * 0.5);
-                ctx.lineTo(bsw * p3 * 0.6, bh * 0.5);
-                ctx.stroke();
+            case 'footprint': {
+              // L-shaped building footprint (plan view from above)
+              const fw=88*sc, fh=72*sc, nx=fw*0.42, ny=fh*0.38;
+              const pts = [
+                [-fw/2,-fh/2],[fw/2,-fh/2],
+                [fw/2, fh/2-ny],[fw/2-nx,fh/2-ny],
+                [fw/2-nx,fh/2],[-fw/2,fh/2],
+                [-fw/2,-fh/2]  // close
+              ];
+              drawPolyline(pts, p);
+
+              // Interior stair/lift core box
+              if (p > 0.82) {
+                const ip = (p-0.82)/0.18;
+                const iw=18*sc, ih=16*sc;
+                const core = [
+                  [-iw/2,-ih/2],[iw/2,-ih/2],
+                  [iw/2, ih/2],[-iw/2,ih/2],[-iw/2,-ih/2]
+                ];
+                ctx.lineWidth *= 0.75;
+                drawPolyline(core, ip);
               }
               break;
             }
@@ -1562,14 +1662,10 @@
             }
           } else if (this.phase === 'hold') {
             this.holdTime++;
-            if (this.holdTime > 140) {   // ~2.3s at 60fps
-              this.phase = 'fading';
-            }
+            if (this.holdTime > 140) this.phase = 'fading';
           } else if (this.phase === 'fading') {
             this.opacity -= 0.008;
-            if (this.opacity <= 0) {
-              this.reset();
-            }
+            if (this.opacity <= 0) this.reset();
           }
         }
       }
