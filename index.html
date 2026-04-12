@@ -989,12 +989,36 @@
     }
 
     @media (max-width: 600px) {
+      /* Grids */
       .projects-grid { grid-template-columns: 1fr; }
       .project-card:nth-child(1) { grid-column: span 1; }
       .services-grid { grid-template-columns: 1fr; }
-      .process-table { grid-template-columns: 1fr 1fr; }
+      .process-table { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
+
+      /* Hide decorative SVGs — each is 160px wide, overflows on phones */
+      .why-deco, .services-deco, .cta-deco { display: none; }
+
+      /* Hide process connecting line — doesn't work in single-column layout */
+      .process-steps::before { display: none; }
+
+      /* Hero padding — reduce from 120px/80px to fit phone viewports */
+      .hero-content { padding: 60px 0 48px; }
+
+      /* Hero sub-text */
+      .hero-sub { font-size: 1rem; }
+
+      /* Hero buttons — full width for easy tapping */
+      .hero-actions { width: 100%; }
+      .hero-actions .btn { width: 100%; box-sizing: border-box; }
+
+      /* Section vertical padding */
+      #why, #projects, #services, #process, #cta { padding: 64px 0; }
+
+      /* Why Us card gap and description font */
+      .why-grid { gap: 16px; }
+      .why-card p { font-size: 1rem; }
     }
   </style>
 </head>
