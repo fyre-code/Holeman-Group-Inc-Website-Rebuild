@@ -912,6 +912,10 @@
     .social-link:hover svg { fill: var(--white); }
     .social-link span { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.2s; }
     .social-link:hover span { color: var(--white); }
+    .social-link-insta svg { fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .social-link-insta svg circle:last-child { fill: rgba(255,255,255,0.55); stroke: none; }
+    .social-link-insta:hover svg { fill: none; stroke: var(--white); }
+    .social-link-insta:hover svg circle:last-child { fill: var(--white); }
 
     .footer-bottom {
       display: flex;
@@ -992,6 +996,10 @@
       /* Why Us card gap and description font */
       .why-grid { gap: 16px; }
       .why-card p { font-size: 1rem; }
+
+      /* Header — logo only, no hamburger */
+      .hamburger { display: none; }
+      .mobile-nav { display: none !important; }
     }
   </style>
 </head>
@@ -1647,11 +1655,11 @@
               </svg>
               <span>Facebook</span>
             </a>
-            <a href="https://www.instagram.com/hgiarchitecture" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+            <a href="https://www.instagram.com/hgiarchitecture" target="_blank" rel="noopener" class="social-link social-link-insta" aria-label="Instagram">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1"/>
               </svg>
               <span>Instagram</span>
             </a>
@@ -1674,7 +1682,7 @@
       </div>
 
       <div class="footer-bottom">
-        <span>© 2025 Holeman Group Architecture + Innovations. All rights reserved.</span>
+        <span>© 2025 Holeman Group Architecture + Innovations. All rights reserved. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;">Privacy Policy</a> &nbsp;·&nbsp; <a href="terms-of-service.html" style="color:rgba(255,255,255,0.45);text-decoration:none;transition:color 0.2s;">Terms of Service</a></span>
         <a href="https://hyppohq.ai/systems/website" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.35);transition:color 0.2s;">Powered by HyppoAI</a>
       </div>
     </div>
